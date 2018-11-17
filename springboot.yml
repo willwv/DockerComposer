@@ -1,0 +1,20 @@
+version: "2"
+services:
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        depends_on:
+          - web
+    web:
+      image: etiennek/spring-boot
+      ports:
+        - "8080:80"
+      depends_on:
+        - postgres
+    postgres:
+      image: postgres
+      ports:
+       - "5432:5432"
+      environment:
+       - POSTGRES_PASSWORD=password
+       - POSTGRES_USER=postgres
+       - POSTGRES_DB=mydb
